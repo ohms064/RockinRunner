@@ -3,10 +3,12 @@ using System.Collections;
 
 public class Pista : MonoBehaviour {
     public Manager manager;
+    private Rigidbody rb;
 
     // Use this for initialization
-    void Start () {
-	}
+    void Awake () {
+        rb = this.GetComponent<Rigidbody>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -14,6 +16,6 @@ public class Pista : MonoBehaviour {
 	}
 
     void FixedUpdate() {
-        this.GetComponent<Rigidbody>().position += new Vector3(manager.velocidad, 0.0f, 0.0f);
+        rb.position += new Vector3(manager.velocidad, 0.0f, 0.0f);
     }
 }

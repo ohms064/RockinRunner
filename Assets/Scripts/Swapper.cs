@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Swapper : MonoBehaviour {
     public Manager manager;
+    [HideInInspector] public int count;
 
     void OnTriggerEnter(Collider pista) {
         pista.GetComponent<Rigidbody>().position = manager.spawnPos;
+        count++;
     }
 #if UNITY_EDITOR
     void OnDrawGizmos() {

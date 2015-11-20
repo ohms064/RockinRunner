@@ -9,7 +9,6 @@ public class Manager : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
         spawnPos = lastTrack.position;
-        spawnPos.x--;
 	}
 	
 	// Update is called once per frame
