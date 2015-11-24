@@ -9,6 +9,11 @@ public class Swapper : MonoBehaviour {
         pista.GetComponent<Rigidbody>().position = manager.spawnPos;
         count++;
     }
+
+    void OnTriggerExit(Collider pista) {
+        manager.switchTracks(pista.transform);
+    }
+
 #if UNITY_EDITOR
     void OnDrawGizmos() {
         Gizmos.color = Color.red;
