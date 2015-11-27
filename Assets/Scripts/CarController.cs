@@ -8,6 +8,8 @@ public class CarController : MonoBehaviour {
     private Quaternion origRot;
     private Rigidbody rb;
     private float velocidad, velocidadRot;
+    private float tiempo;
+    private bool giro;
 
     // Use this for initialization
     void Awake () {
@@ -15,20 +17,29 @@ public class CarController : MonoBehaviour {
         direccion = rb.rotation.eulerAngles;
         posicion = this.transform.position;
         origRot = rb.rotation;
-        
+        tiempo = 0.0f;
+    }
+
+    void Start() {
+        giro = true;
     }
 
     // Update is called once per frame
     void FixedUpdate () {
         velocidad = manager.velocidad * -10.0f;
         velocidadRot = velocidad * 5.0f;
+        print(Time.time);
 
 #if UNITY_EDITOR
-        if (Input.GetAxis("Horizontal") < 0.7f && Input.GetAxis("Horizontal") > -0.7f) {
-            rb.rotation = Quaternion.Lerp(rb.rotation, origRot, Time.time * 0.1f);
+        if (!giro || (Input.GetAxis("Horizontal") < 0.1f && Input.GetAxis("Horizontal") > -0.1f)) {
+            giro = false;
+            rb.rotation = Quaternion.Lerp(rb.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));
             direccion = rb.rotation.eulerAngles;
+            if (rb.rotation.Equals(origRot)) {
+                giro = true;
+            }
         }
-        else {
+        else if(giro) {
             direccion.y += Input.GetAxis("Horizontal") * Time.deltaTime * velocidadRot;
             posicion.z -= Input.GetAxis("Horizontal") * Time.deltaTime * velocidad;
 
@@ -38,13 +49,17 @@ public class CarController : MonoBehaviour {
             //rb.MoveRotation(Quaternion.Euler(direccion * Time.deltaTime) * rb.rotation);
             rb.rotation = Quaternion.Euler(direccion);
             rb.position = posicion;
-            print(rb.rotation);
+            tiempo = Time.time;
         }
 
 #elif UNITY_ANDROID
-        if (Input.acceleration.x < 0.1f && Input.acceleration.x > -0.1f) {
-            rb.rotation = Quaternion.Slerp(rb.rotation, origRot, Time.time * 0.1f);
+        if (giro || (Input.acceleration.x < 0.1f && Input.acceleration.x > -0.1f)) {
+            giro = false;
+            rb.rotation = Quaternion.Lerp(rb.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));
             direccion = rb.rotation.eulerAngles;
+            if (rb.rotation.Equals(origRot)) {
+                giro = true;
+            }
         }
         else {
             direccion.y += Input.acceleration.x * Time.deltaTime * velocidadRot;
@@ -56,6 +71,7 @@ public class CarController : MonoBehaviour {
             //rb.MoveRotation(Quaternion.Euler(direccion * Time.deltaTime) * rb.rotation);
             rb.rotation = Quaternion.Euler(direccion);
             rb.position = posicion;
+            tiempo = Time.time;
         }
 #endif
     }
