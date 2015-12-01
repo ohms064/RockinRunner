@@ -9,7 +9,7 @@ public class CarController : MonoBehaviour {
     private Rigidbody rb;
     private float velocidad, velocidadRot;
     private float tiempo;
-    private bool giro;
+    private bool giro, golpe;
 
     // Use this for initialization
     void Awake () {
@@ -23,7 +23,7 @@ public class CarController : MonoBehaviour {
     void Start() {
         giro = true;
     }
-
+    //cambio
     // Update is called once per frame
     void FixedUpdate () {
         velocidad = manager.velocidad * -10.0f;
@@ -51,6 +51,8 @@ public class CarController : MonoBehaviour {
             rb.position = posicion;
             tiempo = Time.time;
         }
+        golpe = Input.GetKey(KeyCode.Q) ;
+        print(golpe);
 
 #elif UNITY_ANDROID
         if (giro || (Input.acceleration.x < 0.1f && Input.acceleration.x > -0.1f)) {
