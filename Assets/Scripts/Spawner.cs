@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour {
 
 #if UNITY_EDITOR
     void OnDrawGizmos() {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.green;
         Gizmos.DrawCube(this.transform.position, this.transform.localScale);
     }
 #endif

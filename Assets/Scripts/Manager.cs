@@ -6,7 +6,19 @@ public class Manager : MonoBehaviour {
     public float velocidad;
     public GameObject carro;
     [HideInInspector]
-    public Vector3 spawnPos;
-    // Use this for initialization
+    public float velocidadEdif, velocidadBanqueta, tiempoEdif;
     public GameObject[] obstaculos;
+    
+    void Awake() {
+        velocidadEdif = velocidad * 0.5f + 0.027f;
+        tiempoEdif = 5.0f / velocidadEdif;
+        velocidadBanqueta = 0.0f;
+        tiempoEdif = 0.0f;
+    }
+    
+   void Update() {
+        velocidadEdif = velocidad * 0.5f + 0.027f;
+        tiempoEdif = 5.0f / velocidadEdif;
+        print(velocidadEdif);
+    }
 }

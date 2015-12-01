@@ -28,7 +28,6 @@ public class CarController : MonoBehaviour {
     void FixedUpdate () {
         velocidad = manager.velocidad * -10.0f;
         velocidadRot = velocidad * 5.0f;
-        print(Time.time);
 
 #if UNITY_EDITOR
         if (!giro || (Input.GetAxis("Horizontal") < 0.1f && Input.GetAxis("Horizontal") > -0.1f)) {
