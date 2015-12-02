@@ -9,7 +9,8 @@ public class CarController : MonoBehaviour {
     private Rigidbody rb;
     private float velocidad, velocidadRot;
     private float tiempo;
-    private bool giro;
+    private bool giro, golpeIzquierda, golpeDerecha;
+    private Animator animator;
 
     // Use this for initialization
     void Awake () {
@@ -18,16 +19,18 @@ public class CarController : MonoBehaviour {
         posicion = this.transform.position;
         origRot = rb.rotation;
         tiempo = 0.0f;
+        animator = GetComponent<Animator>();
     }
 
     void Start() {
         giro = true;
     }
-
+    //cambio
     // Update is called once per frame
     void FixedUpdate () {
         velocidad = manager.velocidad * -10.0f;
         velocidadRot = velocidad * 5.0f;
+        
 
 #if UNITY_EDITOR
         if (!giro || (Input.GetAxis("Horizontal") < 0.1f && Input.GetAxis("Horizontal") > -0.1f)) {
@@ -49,6 +52,19 @@ public class CarController : MonoBehaviour {
             rb.rotation = Quaternion.Euler(direccion);
             rb.position = posicion;
             tiempo = Time.time;
+        }
+        golpeIzquierda = Input.GetKey(KeyCode.Q) ;
+        if (golpeIzquierda)
+        {
+            //animator.SetInteger("Status", 1);
+            //GameObject.Find("punch_0").GetComponent<SpriteRenderer>().enabled = true;
+            //GameObject.Find("punch_1").GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else
+        {
+            //animator2.SetInteger("Status", 0);
+            //GameObject.Find("punch_0").GetComponent<SpriteRenderer>().enabled = false;
+            //GameObject.Find("punch_1").GetComponent<SpriteRenderer>().enabled = false;        
         }
 
 #elif UNITY_ANDROID
