@@ -4,9 +4,11 @@ using System.Collections;
 public class RightArmBehavior : MonoBehaviour {
     private Animator animator;
     public string input = "w";
+    public bool golpe;
 
     void Awake() {
         animator = GetComponent<Animator>();
+        golpe = false;
     }
 	// Use this for initialization
 	void Start () {
@@ -15,7 +17,7 @@ public class RightArmBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(input))
+        if (golpe)
         {
             animator.SetInteger("Status", 1);
         }
@@ -23,4 +25,8 @@ public class RightArmBehavior : MonoBehaviour {
             animator.SetInteger("Status", 0);
         }
 	}
+
+    public void setGolpe(bool gol) {
+        this.golpe = gol;
+    }
 }
