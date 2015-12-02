@@ -8,12 +8,15 @@ public class Limit : MonoBehaviour {
     void OnTriggerEnter(Collider pista) {
         //Destroy(pista.gameObject);
         pista.transform.position = spawnPoint.position;
+        
     }
 
 #if UNITY_EDITOR
     void OnDrawGizmos() {
         Gizmos.color = Color.red;
         Gizmos.DrawCube(this.transform.position, this.transform.localScale);
+        Gizmos.color = Color.green;
+        Gizmos.DrawCube(spawnPoint.transform.position, this.transform.localScale);
     }
 #endif
 }

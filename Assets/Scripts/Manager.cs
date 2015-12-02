@@ -19,6 +19,5 @@ public class Manager : MonoBehaviour {
    void Update() {
         velocidadEdif = velocidad * 0.5f + 0.027f;
         tiempoEdif = 5.0f / velocidadEdif;
-        print(velocidadEdif);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+[RequireComponent(typeof(Rigidbody))]
 public class CarController : MonoBehaviour {
    
     public Manager manager;
