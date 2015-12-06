@@ -22,6 +22,14 @@ public class Spawner : MonoBehaviour {
         type.transform.position = transform.position;
     }
 
+    public void Spawn(GameObject type) {
+        type.transform.position = this.transform.position;
+        type.GetComponent<BuildingsMovement>().enabled = true;
+    }
+    public void Spawn(Collider type) {
+        type.transform.position = this.transform.position;
+    }
+
 #if UNITY_EDITOR
     void OnDrawGizmos() {
         Gizmos.color = Color.green;

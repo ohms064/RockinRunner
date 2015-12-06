@@ -3,29 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class SpawnerController : MonoBehaviour {
-    private string[] nivel;
-    private int estado;
+    public Manager manager;
     public Spawner[] hijos;
-    public Queue<GameObject> objetos;
     public GameObject type;
+    
 
     // Use this for initialization
     void Awake () {
-        nivel = new string[6] { "1", "2", "3", "1 2", "1 3","2 3"};
     }
 	
+    void Start() {
+        StartCoroutine(createObstacles());
+    }
 	// Update is called once per frame
 	void Update () {
-	    
 	}
-
-    void StateMachine() {
-        estado = Random.Range(0, 5);
-        foreach (string item in nivel[estado].Split(' ')) {
-            hijos[int.Parse(item)].InstanceObject(objetos.Dequeue());
+    
+    public IEnumerator createObstacles() {
+        SpawnerController script = this.GetComponent<SpawnerController>();
+        for (int i = 0; i < manager.dificultad.Length; i++) {
+            yield return new WaitForSeconds(3);
+            hijos[Random.Range(0, hijos.Length)].Spawn(manager.dificultad[i]);
         }
-        if(estado == 1) {
-
-        }
+        script.enabled = false;
     }
 }

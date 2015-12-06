@@ -4,6 +4,7 @@ using System.Collections;
 public class CarController : MonoBehaviour {
    
     public Manager manager;
+    public Transform camara;
     private Vector3 direccion, posicion;
     private Quaternion origRot;
     private Rigidbody rb;
@@ -11,6 +12,7 @@ public class CarController : MonoBehaviour {
     private float tiempo;
     private bool giro, golpeIzquierda, golpeDerecha;
     private Animator animator;
+    
 
     // Use this for initialization
     void Awake () {
@@ -52,6 +54,7 @@ public class CarController : MonoBehaviour {
             rb.rotation = Quaternion.Euler(direccion);
             rb.position = posicion;
             tiempo = Time.time;
+            camara.position = new Vector3(camara.position.x, camara.position.y, posicion.z);
         }
         golpeIzquierda = Input.GetKey(KeyCode.Q) ;
         if (golpeIzquierda)
