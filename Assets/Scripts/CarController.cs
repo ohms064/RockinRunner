@@ -43,7 +43,6 @@ public class CarController : MonoBehaviour {
                         giro = true;
                     }
                 }
-                else if(giro) {
                     direccion.y += Input.GetAxis("Horizontal") * Time.deltaTime * velocidadRot;
                     posicion.z -= Input.GetAxis("Horizontal") * Time.deltaTime * velocidad;
 
@@ -55,7 +54,6 @@ public class CarController : MonoBehaviour {
                     rb.position = posicion;
                     tiempo = Time.time;
 
-                }
                 golpeIzquierda = Input.GetKey(KeyCode.Q) ;
                 if (golpeIzquierda)
                 {

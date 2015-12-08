@@ -11,7 +11,6 @@ public class BuildingSpawner : MonoBehaviour {
 	
     private IEnumerator Spawn() {
         while (true) {
-            //print(Random.Range(0, buldings.Length));
             yield return new WaitForSeconds(1);
         }
     }

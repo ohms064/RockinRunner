@@ -4,7 +4,7 @@ using System.Collections;
 
 public class TextOffset : MonoBehaviour {
     private delegate void MovementFunc(float n);
-    public delegate int Distance();
+    public delegate float Distance();
     public enum TipoMovimiento {
         moverEnX, moverEnY, moverEnMinX, moverEnMinY
     }
@@ -32,11 +32,11 @@ public class TextOffset : MonoBehaviour {
         uvOffset.y -= n;
     }
 
-    public int getX() {
-        return Mathf.Abs((int)uvOffset.x);
+    public float getX() {
+        return Mathf.Abs(uvOffset.x);
     }
-    public int getY() {
-        return Mathf.Abs((int)uvOffset.y);
+    public float getY() {
+        return Mathf.Abs(uvOffset.y);
     }
 
     // Use this for initialization

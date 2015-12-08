@@ -12,13 +12,18 @@ public class Manager : MonoBehaviour {
     public GameObject[] dificultad;
     public bool pausa;
     public Canvas botones;
-    public int distancia;
+    private float distancia;
+    public float fin = 10.0f;
+    [HideInInspector]
+    public float recorrido;
     private bool anterior;
     private float retorna;
+    private TableroScript tablero;
 
     void Awake() {
         velocidadEdif = Mathf.Clamp(velocidad * 0.5f + 0.027f, -1.0f, 0.0f);
         StartCoroutine(SubirDif());
+        tablero = GetComponent<TableroScript>();
     }
     
    void Update() {
@@ -28,13 +33,19 @@ public class Manager : MonoBehaviour {
         }
         anterior = pausa;
         distancia = pista.getDistancia();
+        tablero.valorRef = velocidad;
+        recorrido = distancia / fin;
+    }
+
+    void FixedUpdate() {
+        
     }
 
     public void setPausa(bool p) {
         pausa = p;
     }
 
-    IEnumerator Pausar() {
+    private IEnumerator Pausar() {
         retorna = velocidad;
         velocidad = 0.0f;
         botones.enabled = false;
@@ -47,14 +58,10 @@ public class Manager : MonoBehaviour {
 
     IEnumerator SubirDif() {
         while (true) {
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(5.0f);
             while (velocidad > -2.0f) {
-                print("Distancia: " + distancia);
-                if (distancia % 5 == 0) {
-                    print("Subió la dificultad");
-                    velocidad *= 1.5f;
-                }
-                yield return new WaitForSeconds(2.0f);
+                velocidad = Mathf.Clamp(velocidad * 1.05f, -2.0f, 0.0f);
+                yield return new WaitForSeconds(1.0f);
             }
         }
     }
