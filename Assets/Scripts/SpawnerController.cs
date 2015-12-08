@@ -5,7 +5,6 @@ using System.Collections.Generic;
 public class SpawnerController : MonoBehaviour {
     public Manager manager;
     public Spawner[] hijos;
-    public GameObject type;
     
 
     // Use this for initialization

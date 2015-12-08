@@ -33,7 +33,7 @@ public class CarController : MonoBehaviour {
     void FixedUpdate () {
         velocidad = manager.velocidad * -10.0f;
         velocidadRot = velocidad * 5.0f;
-
+        /*
         #if UNITY_EDITOR
                 if (!giro || (Input.GetAxis("Horizontal") < 0.1f && Input.GetAxis("Horizontal") > -0.1f)) {
                     giro = false;
@@ -67,8 +67,7 @@ public class CarController : MonoBehaviour {
                     //GameObject.Find("punch_0").GetComponent<SpriteRenderer>().enabled = false;
                     //GameObject.Find("punch_1").GetComponent<SpriteRenderer>().enabled = false;        
                 }
-        #endif
-        /*
+        */
         #if UNITY_ANDROID
                 if (!giro || (Input.acceleration.x < 0.1f && Input.acceleration.x > -0.1f)) {
                     giro = false;
@@ -88,7 +87,7 @@ public class CarController : MonoBehaviour {
                     rb.position = posicion;
                     tiempo = Time.time;
         #endif
-        */
+        
         camara.position = new Vector3(camara.position.x, camara.position.y, posicion.z);
     }
 

@@ -10,6 +10,7 @@ public class Manager : MonoBehaviour {
     [HideInInspector]
     public float velocidadEdif;
     public GameObject[] dificultad;
+    public GameObject[] fans;
     public bool pausa;
     public Canvas botones;
     private float distancia;
@@ -28,7 +29,7 @@ public class Manager : MonoBehaviour {
     
    void Update() {
         velocidadEdif = Mathf.Clamp(velocidad * 0.5f + 0.027f, -1.0f, 0.0f);
-        if ((pausa ^ anterior) && pausa) {
+        if (pausa && !anterior) {
             StartCoroutine(Pausar());
         }
         anterior = pausa;

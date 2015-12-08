@@ -6,22 +6,22 @@ public class FanBehavior : MonoBehaviour {
     public string input = "f";
     public int estadoFan;
     public bool teclaF;
+    public Manager manager;
+    private Rigidbody rb;
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+       animator = GetComponent<Animator>();
        animator.SetInteger("fan_state", 0);
        estadoFan = 0;
+       rb = this.GetComponent<Rigidbody>();
     }
-	// Use this for initialization
-	void Start () {
-	
-	}   
-	
+    // Use this for initialization
 
 
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         teclaF = Input.GetKey(KeyCode.F) ;
         if (teclaF)
         {
@@ -52,4 +52,8 @@ public class FanBehavior : MonoBehaviour {
             }
         }
 	}
+
+    void FixedUpdate() {
+        rb.position += new Vector3(manager.velocidadEdif, 0.0f, 0.0f);
+    }
 }

@@ -17,12 +17,9 @@ public class RightArmBehavior : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (golpe)
-        {
-            animator.SetInteger("Status", 1);
-        }
-        else {
-            animator.SetInteger("Status", 0);
+        if (golpe) {
+            animator.SetTrigger("Golpe");
+            golpe = false;
         }
 	}
 
