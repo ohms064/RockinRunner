@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObstacleLimit : MonoBehaviour {
-    public Spawner[] spawnPoint;
+public class FanLimit : MonoBehaviour {
+    public FanSpawner[] spawnPoint;
 
 	// Use this for initialization
 	void Start () {
@@ -13,14 +13,14 @@ public class ObstacleLimit : MonoBehaviour {
 	void Update () {
 	
 	}
-    void OnTriggerEnter(Collider obstaculo) {
-        if(obstaculo.tag == "Obstaculo")
-            spawnPoint[Random.Range(0, spawnPoint.Length)].Spawn(obstaculo);
-        
+
+    void OnTriggerEnter(Collider fan) {
+        if(fan.tag == "Fan")
+            spawnPoint[Random.Range(0, spawnPoint.Length)].Respawn(fan);
     }
 #if UNITY_EDITOR
     void OnDrawGizmos() {
-        Gizmos.color = Color.red;
+        Gizmos.color = Color.blue;
         Gizmos.DrawCube(this.transform.position, this.transform.localScale);
     }
 #endif

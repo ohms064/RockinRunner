@@ -6,8 +6,8 @@ public class Limit : MonoBehaviour {
     public Transform spawnPoint;
 
     void OnTriggerEnter(Collider pista) {
-        //Destroy(pista.gameObject);
-        pista.transform.position = spawnPoint.position;
+        if(pista.tag == "Edificio")
+            pista.transform.position = spawnPoint.position;
         
     }
 

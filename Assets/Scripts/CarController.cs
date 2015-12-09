@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
-[RequireComponent(typeof(Rigidbody))]
+
 public class CarController : MonoBehaviour {
    
     public Manager manager;
     public Transform camara;
     private Vector3 direccion, posicion;
     private Quaternion origRot;
-    private Rigidbody rb;
     private float velocidad, velocidadRot;
     private float tiempo;
     private bool giro, golpeIzquierda, golpeDerecha;
@@ -16,10 +15,9 @@ public class CarController : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
-        rb = this.GetComponent<Rigidbody>();
-        direccion = rb.rotation.eulerAngles;
+        direccion = this.transform.rotation.eulerAngles;
         posicion = this.transform.position;
-        origRot = rb.rotation;
+        origRot = this.transform.rotation;
         tiempo = 0.0f;
         animator = GetComponent<Animator>();
         camaraOrig = camara.position;
@@ -34,10 +32,10 @@ public class CarController : MonoBehaviour {
         velocidad = manager.velocidad * -10.0f;
         velocidadRot = velocidad * 5.0f;
         /*
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
                 if (!giro || (Input.GetAxis("Horizontal") < 0.1f && Input.GetAxis("Horizontal") > -0.1f)) {
                     giro = false;
-                    rb.rotation = Quaternion.Lerp(rb.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));
+                    this.transform.rotation = Quaternion.Lerp(rb.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));
                     direccion = rb.rotation.eulerAngles;
                     if (rb.rotation.Equals(origRot)) {
                         giro = true;
@@ -49,9 +47,9 @@ public class CarController : MonoBehaviour {
                     direccion.y = Mathf.Clamp(direccion.y, 80.0f, 100.0f);
                     posicion.z = Mathf.Clamp(posicion.z, -2.0f, 2.0f);
 
-                    //rb.MoveRotation(Quaternion.Euler(direccion * Time.deltaTime) * rb.rotation);
-                    rb.rotation = Quaternion.Euler(direccion);
-                    rb.position = posicion;
+                    //this.transform.MoveRotation(Quaternion.Euler(direccion * Time.deltaTime) * rb.rotation);
+                    this.transform.rotation = Quaternion.Euler(direccion);
+                    this.transform.position = posicion;
                     tiempo = Time.time;
 
                 golpeIzquierda = Input.GetKey(KeyCode.Q) ;
@@ -68,12 +66,13 @@ public class CarController : MonoBehaviour {
                     //GameObject.Find("punch_1").GetComponent<SpriteRenderer>().enabled = false;        
                 }
         */
-        #if UNITY_ANDROID
-                if (!giro || (Input.acceleration.x < 0.1f && Input.acceleration.x > -0.1f)) {
+
+#if UNITY_ANDROID
+        if (!giro || (Input.acceleration.x < 0.1f && Input.acceleration.x > -0.1f)) {
                     giro = false;
-                    rb.rotation = Quaternion.Lerp(rb.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));
-                    direccion = rb.rotation.eulerAngles;
-                    if (rb.rotation.Equals(origRot)) {
+                    this.transform.rotation = Quaternion.Lerp(this.transform.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));
+                    direccion = this.transform.rotation.eulerAngles;
+                    if (this.transform.rotation.Equals(origRot)) {
                         giro = true;
                     }
                 }
@@ -83,10 +82,10 @@ public class CarController : MonoBehaviour {
                     direccion.y = Mathf.Clamp(direccion.y, 80.0f, 100.0f);
                     posicion.z = Mathf.Clamp(posicion.z, -2.0f, 2.0f);
 
-                    rb.rotation = Quaternion.Euler(direccion);
-                    rb.position = posicion;
+                    this.transform.rotation = Quaternion.Euler(direccion);
+                    this.transform.position = posicion;
                     tiempo = Time.time;
-        #endif
+#endif
         
         camara.position = new Vector3(camara.position.x, camara.position.y, posicion.z);
     }
@@ -116,7 +115,9 @@ public class CarController : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider c) {
-        StartCoroutine(Shake());
-        manager.velocidad *= 0.8f;
+        if (c.tag == "Obstaculo") {
+            StartCoroutine(Shake());
+            manager.velocidad *= 0.8f;
+        }
     }
 }

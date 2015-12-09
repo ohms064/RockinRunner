@@ -12,9 +12,10 @@ GameObject:
   - 95: {fileID: 9576420}
   - 114: {fileID: 11421006}
   - 54: {fileID: 5429158}
+  - 65: {fileID: 6562724}
   m_Layer: 0
   m_Name: everything a fan can do_0
-  m_TagString: Untagged
+  m_TagString: Fan
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,6 +47,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6562724
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 179866}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: .719999909, y: .960000038, z: .199999973}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &9576420
 Animator:
   serializedVersion: 3
@@ -78,6 +91,7 @@ MonoBehaviour:
   estadoFan: 0
   teclaF: 0
   manager: {fileID: 0}
+  punchCounter: 0
 --- !u!212 &21211486
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -140,6 +154,14 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_LocalRotation.w
       value: .707106709
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Fan
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

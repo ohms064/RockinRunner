@@ -6,7 +6,7 @@ public class Manager : MonoBehaviour {
     [Range(-2.0f, 0.0f)]
     public float velocidad;
     public TextOffset pista;
-    public GameObject carro;
+    public Transform carro;
     [HideInInspector]
     public float velocidadEdif;
     public GameObject[] dificultad;
