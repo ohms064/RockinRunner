@@ -10,8 +10,6 @@ public class CarController : MonoBehaviour {
     private float velocidad, velocidadRot;
     private float tiempo;
     private bool giro, golpeIzquierda, golpeDerecha;
-    private Animator animator;
-    private Vector3 camaraOrig;
 
     // Use this for initialization
     void Awake () {
@@ -19,8 +17,6 @@ public class CarController : MonoBehaviour {
         posicion = this.transform.position;
         origRot = this.transform.rotation;
         tiempo = 0.0f;
-        animator = GetComponent<Animator>();
-        camaraOrig = camara.position;
     }
 
     void Start() {
@@ -31,13 +27,13 @@ public class CarController : MonoBehaviour {
     void FixedUpdate () {
         velocidad = manager.velocidad * -10.0f;
         velocidadRot = velocidad * 5.0f;
-        /*
+
 #if UNITY_EDITOR
                 if (!giro || (Input.GetAxis("Horizontal") < 0.1f && Input.GetAxis("Horizontal") > -0.1f)) {
                     giro = false;
-                    this.transform.rotation = Quaternion.Lerp(rb.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));
-                    direccion = rb.rotation.eulerAngles;
-                    if (rb.rotation.Equals(origRot)) {
+                    this.transform.rotation = Quaternion.Lerp(this.transform.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));
+                    direccion = this.transform.rotation.eulerAngles;
+                    if (this.transform.rotation.Equals(origRot)) {
                         giro = true;
                     }
                 }
@@ -52,22 +48,7 @@ public class CarController : MonoBehaviour {
                     this.transform.position = posicion;
                     tiempo = Time.time;
 
-                golpeIzquierda = Input.GetKey(KeyCode.Q) ;
-                if (golpeIzquierda)
-                {
-                    //animator.SetInteger("Status", 1);
-                    //GameObject.Find("punch_0").GetComponent<SpriteRenderer>().enabled = true;
-                    //GameObject.Find("punch_1").GetComponent<SpriteRenderer>().enabled = true;
-                }
-                else
-                {
-                    //animator2.SetInteger("Status", 0);
-                    //GameObject.Find("punch_0").GetComponent<SpriteRenderer>().enabled = false;
-                    //GameObject.Find("punch_1").GetComponent<SpriteRenderer>().enabled = false;        
-                }
-        */
-
-#if UNITY_ANDROID
+#elif UNITY_ANDROID
         if (!giro || (Input.acceleration.x < 0.1f && Input.acceleration.x > -0.1f)) {
                     giro = false;
                     this.transform.rotation = Quaternion.Lerp(this.transform.rotation, origRot, ( 1.0f - manager.velocidad) * (Time.time - tiempo));

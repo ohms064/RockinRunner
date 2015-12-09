@@ -3,22 +3,18 @@ using System.Collections;
 public delegate void State();
 public class FanBehaviour : MonoBehaviour {
     private Animator animator;
-    public string input = "f";
-    public int estadoFan;
-    public bool teclaF;
     public Manager manager;
     public State StateExec;
     public int punchCounter;
     private bool atacar;
 
-    public const int maxGolpes = 5;
+    public const int maxGolpes = 10;
 
 
     void Awake()
     {
        animator = GetComponent<Animator>();
        animator.SetInteger("fan_state", 0);
-       estadoFan = 0;
        StateExec = new State(Moving);
        atacar = false;
        punchCounter = 0;
@@ -27,8 +23,8 @@ public class FanBehaviour : MonoBehaviour {
 
     void FixedUpdate() {
         StateExec();
-        if(punchCounter == maxGolpes) {
-            punchCounter++;
+        if(punchCounter >= maxGolpes) {
+            punchCounter = 0;
             atacar = false;
             animator.SetTrigger("Fall");
             StateExec = new State(Moving);
@@ -51,8 +47,11 @@ public class FanBehaviour : MonoBehaviour {
             this.transform.parent = signal.transform;
             StartCoroutine(Atacar());
         }
-        else if(signal.tag == "Obstaculo" || signal.tag == "Golpe"){
+        else if(signal.tag == "Golpe"){
             punchCounter++;
+        }
+        else if(signal.tag == "Obstaculo") {
+            punchCounter += 4;
         }
     }
 
