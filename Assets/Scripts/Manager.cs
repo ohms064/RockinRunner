@@ -70,12 +70,10 @@ public class Manager : MonoBehaviour {
     }
 
     IEnumerator SubirDif() {
+        yield return new WaitForSeconds(5.0f);
         while (true) {
-            yield return new WaitForSeconds(5.0f);
-            while (velocidad > -2.0f) {
-                velocidad = Mathf.Clamp(velocidad * 1.05f, -2.0f, 0.0f);
-                yield return new WaitForSeconds(1.0f);
-            }
+            velocidad = Mathf.Clamp(velocidad * 1.05f, -2.0f, 0.0f);
+            yield return new WaitForSeconds(1.8f);
         }
     }
 
